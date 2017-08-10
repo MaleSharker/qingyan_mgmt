@@ -81,14 +81,14 @@ function installDepsCallback(error) {
     process.stdout.write('\n');
     process.exit(1);
   }
-
-  deleteFileInCurrentDir('setup.js', function () {
-    interval = animateProgress('Initialising new repository');
-    process.stdout.write('Initialising new repository');
-    initGit(function () {
-      clearInterval(interval);
-      process.stdout.write('\nDone!');
-      process.exit(0);
-    });
-  });
+  //
+  // deleteFileInCurrentDir('setup.js', function () {
+  //   interval = animateProgress('Initialising new repository');
+  //   process.stdout.write('Initialising new repository');
+  //   initGit(function () {
+  //     clearInterval(interval);
+  //     process.stdout.write('\nDone!');
+  //     process.exit(0);
+  //   });
+  // });
 }
