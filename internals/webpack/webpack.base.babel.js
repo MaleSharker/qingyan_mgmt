@@ -75,6 +75,7 @@ module.exports = (options) => ({
       },
     }),
     new webpack.NamedModulesPlugin(),
+    new webpack.ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /js$/),
   ]),
   resolve: {
     modules: ['app', 'node_modules'],

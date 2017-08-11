@@ -15,13 +15,15 @@ import Footer from 'components/Footer';
 import withProgressBar from 'components/ProgressBar';
 
 const AppWrapper = styled.div`
-  max-width: calc(768px + 16px * 2);
+  max-width: 80%;
   margin: 0 auto;
   display: flex;
   min-height: 100%;
   padding: 0 16px;
   flex-direction: column;
+  background: #f5f5f5;
 `;
+
 
 export function App(props) {
   return (
@@ -33,7 +35,7 @@ export function App(props) {
           { name: 'description', content: 'A React.js Boilerplate application' },
         ]}
       />
-      <Header />
+      {/*<Header />*/}
       {React.Children.toArray(props.children)}
       <Footer />
     </AppWrapper>
@@ -45,3 +47,5 @@ App.propTypes = {
 };
 
 export default withProgressBar(App);
+
+
