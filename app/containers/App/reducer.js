@@ -16,10 +16,14 @@ import {
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS,
   LOAD_REPOS_ERROR,
+  LOAD_USER_LOGIN,
+  LOAD_LOGIN_SUCCESS,
+  LOAD_LOGIN_ERROR,
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
+  isLogin: true,
   loading: false,
   error: false,
   currentUser: false,
@@ -49,4 +53,23 @@ function appReducer(state = initialState, action) {
   }
 }
 
+function userLogin(state = initialState, action) {
+  switch (action.type){
+    case LOAD_USER_LOGIN:
+      return state;
+    case LOAD_LOGIN_SUCCESS:
+      return state
+          .set('isLogin',true);
+    case LOAD_LOGIN_ERROR:
+      return state
+          .set('isLogin',false);
+    default:
+      return state;
+  }
+}
+
+// export  {
+//     appReducer,
+//     userLogin,
+// };
 export default appReducer;

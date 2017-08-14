@@ -18,7 +18,16 @@ export default function createRoutes(store) {
 
   return [
     {
-      path: '/manageUser',
+      path: '/',
+      name: 'login',
+      getComponent(nextState, cb) {
+        import('containers/LoginPage')
+            .then(loadModule(cb))
+            .catch(errorLoading)
+      }
+    },
+    {
+      path: '/manage',
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
