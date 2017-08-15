@@ -70,9 +70,11 @@ class AsideCollapse extends React.Component {
   }
 
   componentDidMount(){
-
+    console.log('component did mount - - - ');
     if (this.props.isLogin){
       browserHistory.push('/manage');
+    }else {
+      browserHistory.push('/');
     }
   }
 

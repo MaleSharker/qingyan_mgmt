@@ -1,9 +1,9 @@
 /**
- * Created by baichenchen on 2017/8/15.
+ * Created by YCYL on 2017/8/15.
  */
 
 
-const baseUrl = "http://localhost:4000";
+const baseUrl = "http://192.168.0.157:3000";
 
 //获取验证码
 export const smsCodeURL = `${baseUrl}/client/v1/user/SMSCode`;
@@ -25,6 +25,3 @@ export const updateProfileURL = `${baseUrl}/client/v1/user/updateProfile`;
 
 //用户上传头像
 export const uploadHeadImgURL = `${baseUrl}/client/v1/user/uploadHeadImg`;
-
-
-

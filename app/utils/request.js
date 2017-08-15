@@ -8,7 +8,9 @@ import 'whatwg-fetch';
  * @return {object}          The parsed JSON from the request
  */
 function parseJSON(response) {
-  return response.json();
+  const json = response.json();
+  console.log('json - - ',json);
+  return json;
 }
 
 /**

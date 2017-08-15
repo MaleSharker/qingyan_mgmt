@@ -21,9 +21,22 @@ export default function createRoutes(store) {
       path: '/',
       name: 'login',
       getComponent(nextState, cb) {
-        import('containers/LoginPage')
-            .then(loadModule(cb))
-            .catch(errorLoading)
+        const importModules = Promise.all([
+            import('containers/LoginPage/reducer'),
+            import('containers/LoginPage/sagas'),
+            import('containers/LoginPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('login',reducer.default);
+          injectSagas(sagas.default);
+
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
       }
     },
     {

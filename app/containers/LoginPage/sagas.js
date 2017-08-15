@@ -4,48 +4,49 @@
 
 
 import { take, call, put, select, cancel, takeLatest } from 'redux-saga/effects';
+import { browserHistory } from 'react-router';
 import request from 'utils/request';
 
-import { phoneLoginURL } from 'server/netconfig';
+import { phoneLoginURL } from 'utils/netconfig';
+import md5 from 'js-md5';
 
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { LOAD_USER_LOGIN } from './constants';
+import { LOAD_USER_LOGIN } from 'containers/App/constants';
 import {
   repoLoginSuccess,
   repoLoginError,
-} from './actions';
+} from 'containers/App/actions';
 import {
   selectLoginPhone,
   selectLoginPwd,
-} from './selectors'
+} from 'containers/LoginPage/selectors'
 
 
-function* userAuth() {
+export function* userAuth() {
 
   const phone = yield select(selectLoginPhone());
   const pwd = yield select(selectLoginPwd());
-
   const option = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: JSON.stringify({
-      phone: phone,
-      password: pwd,
-    })
+    body: `phone=${phone}&password=${md5(pwd)}`,
   };
 
   try {
-    yield call()
+    const repos = yield call(request, phoneLoginURL,option);
+    console.log('repos - - ',repos);
+    yield put(repoLoginSuccess(repos.result.user.userID,repos.result.user.token));
+    browserHistory.push('/manage');
   }catch (err){
-    yield
+    console.log('error - - ',err);
+    yield put(repoLoginError(err));
   }
 
 }
 
 export function* loginData() {
-
   const watcher = yield takeLatest(LOAD_USER_LOGIN, userAuth);
 
   yield take(LOCATION_CHANGE);
@@ -53,3 +54,7 @@ export function* loginData() {
   yield cancel(watcher);
 
 }
+
+export default [
+    loginData,
+];

@@ -28,7 +28,7 @@ const AsideCollapse = React.createClass({
                 <AsideDiv>
                     <AsideSider>
                         <AsideLogo></AsideLogo>
-                        <ASMenu mode="inline" theme="dark" defaultSelectedKeys={['user-list']}>
+                        <ASMenu mode="inline" theme="dark" defaultSelectedKeys={['user-list']} >
                             <SubMenu key="user" title={<ASMNavText><ASMIIcon type="user"></ASMIIcon><ASMNavText>用户管理</ASMNavText></ASMNavText>}>
                                 <ASMItem key="user-list">
                                     <Link to="/manage"><ASMNavText>用户列表</ASMNavText></Link>

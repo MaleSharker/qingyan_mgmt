@@ -47,6 +47,16 @@ const makeSelectLocationState = () => {
   };
 };
 
+const selectLoginKey = () => createSelector(
+    selectGlobal,
+    (globalState) => globalState.get('key')
+);
+
+const selectLoginToken = () => createSelector(
+    selectGlobal,
+    (globalState) => globalState.get('token')
+);
+
 export {
   selectGlobal,
   makeSelectLogin,
@@ -55,4 +65,6 @@ export {
   makeSelectError,
   makeSelectRepos,
   makeSelectLocationState,
+  selectLoginKey,
+  selectLoginToken,
 };

@@ -5,6 +5,13 @@
 import 'antd/dist/antd.css';
 import {  Form, Icon, Input, Checkbox } from 'antd';
 import { Link, browserHistory } from 'react-router';
+import {
+    loginPhoneChanged,
+    loginPasswordChanged,
+} from './actions';
+import {
+    repoUserLogin
+} from 'containers/App/actions';
 import { LoginForm, LoginBtn ,LoginBody } from './components';
 const FormItem = Form.Item;
 
@@ -12,13 +19,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectLogin } from 'containers/App/selectors';
+import {
+    selectLoginPhone,
+    selectLoginPwd,
+} from './selectors'
 
 class Login extends  React.Component {
-
-    constructor(props){
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
 
     componentDidMount(){
         if (this.props.isLogin) {
@@ -27,32 +33,28 @@ class Login extends  React.Component {
         }
     }
 
-    handleSubmit(e){
-        e.preventDefault();
-        this.props.form.validateFields((error, values) => {
-            if (!error) {
-                console.log('Received values of form: ',values);
-            }
-        });
-    }
-
     render(){
         const { getFieldDecorator } = this.props.form;
         return (
             <LoginBody>
-                <LoginForm onSubmit={this.handleSubmit}>
+                <LoginForm onSubmit={this.props.handleSubmitForm}>
                     <FormItem>
                         { getFieldDecorator('userName', {
                             rules: [{ required: true, message: 'Please input your username!'}],
                         })(
-                            <Input prefix={<Icon type="user" style={{fontSize: 13}} />} placeholder="Username" />
+                            <Input prefix={<Icon type="tablet" style={{fontSize: 13}} />}
+                                   placeholder="Phone"
+                                   onChange={this.props.onChangePhone} />
                         )}
                     </FormItem>
                     <FormItem>
                         { getFieldDecorator('password', {
                             rules: [{ required: true, message: 'Please input your password!'}],
                         })(
-                            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }}/>} type="password" placeholder="Password"/>
+                            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }}/>}
+                                   type="password"
+                                   placeholder="Password"
+                                   onChange={this.props.onChangePassword}/>
                         )}
                     </FormItem>
                     <FormItem>
@@ -75,9 +77,22 @@ class Login extends  React.Component {
 
 }
 
+export function mapDispatchToProps(dispatch) {
+    return {
+        onChangePhone: (evt) => dispatch(loginPhoneChanged(evt.target.value)),
+        onChangePassword: (evt) => dispatch(loginPasswordChanged(evt.target.value)),
+        handleSubmitForm: (evt) => {
+            if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+            console.log('handle submit - - - - ');
+            dispatch(repoUserLogin());
+        },
+    };
+}
+
 const mapStateToProps = createStructuredSelector({
-    isLogin: makeSelectLogin(),
+    phone: selectLoginPhone(),
+    pwd: selectLoginPwd(),
 });
 
 const WrappedNormalLoginForm = Form.create()(Login);
-export default connect(mapStateToProps)(WrappedNormalLoginForm);
+export default connect(mapStateToProps,mapDispatchToProps)(WrappedNormalLoginForm);
