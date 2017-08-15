@@ -14,7 +14,4 @@ export const LOAD_REPOS_SUCCESS = 'boilerplate/App/LOAD_REPOS_SUCCESS';
 export const LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR';
 export const DEFAULT_LOCALE = 'en';
 
-//用户登录
-export const LOAD_USER_LOGIN = 'boilerplate/App/LOAD_USER_LOGIN';
-export const LOAD_LOGIN_SUCCESS = 'boilerplate/App/LOAD_LOGIN_SUCCESS';
-export const LOAD_LOGIN_ERROR = 'boilerplate/App/LOAD_LOGIN_ERROR';
+

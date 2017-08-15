@@ -72,7 +72,6 @@ class AsideCollapse extends React.Component {
   componentDidMount(){
 
     if (this.props.isLogin){
-      console.log(' - - - App ');
       browserHistory.push('/manage');
     }
   }
