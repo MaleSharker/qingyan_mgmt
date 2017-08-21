@@ -2,9 +2,22 @@
  * Created by YCYL on 2017/8/15.
  */
 
-const SMS_ENCODE = 'SXLSSJY';
+export const SMS_ENCODE = 'SXLSSJY';
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://192.168.0.165:3000";
+
+export const postOptions = {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'key': '',
+        'token': '',
+    },
+};
+
+export const uploadOptions = {
+};
+
 /**
  * 用户模块
  * @type {string}

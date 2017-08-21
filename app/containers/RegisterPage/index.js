@@ -9,6 +9,11 @@ import { connect } from 'react-redux';
 import { createStructuredSelector} from 'reselect';
 import { selectRegisterPhone } from './selectors';
 import { repoUserRegister } from 'containers/App/actions';
+import {
+  registerPhoneChange,
+  registerPwdChange,
+  registerSmsCodeChange,
+} from './actions';
 import 'antd/dist/antd.css';
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button } from 'antd';
 const FormItem = Form.Item;
@@ -132,7 +137,8 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator('phone', {
             rules: [{ required: true, message: 'Please input your phone number!' }],
           })(
-            <Input addonBefore={prefixSelector} />
+            <Input addonBefore={prefixSelector}
+                   onChange={this.props.handlePhoneChange}/>
           )}
         </FormItem>
         <FormItem
@@ -145,7 +151,8 @@ class RegistrationForm extends React.Component {
               {getFieldDecorator('captcha', {
                 rules: [{ required: true, message: 'Please input the captcha you got!' }],
               })(
-                <Input size="large" />
+                <Input size="large"
+                       onChange={this.props.handlePwdChange}/>
               )}
             </Col>
             <Col span={12}>
@@ -180,7 +187,7 @@ class RegistrationForm extends React.Component {
               validator: this.checkPassword,
             }],
           })(
-            <Input type="password" onBlur={this.handleConfirmBlur} />
+            <Input type="password" onBlur={this.handleConfirmBlur} onChange={this.props.handleSMSCodeChange}/>
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout} style={{ marginBottom: 8 }}>
@@ -208,8 +215,23 @@ const WrappedRegistrationForm = Form.create()(RegistrationForm);
 
 export function mapDispatchToProps(dispatch) {
   return {
+    handlePhoneChange: (evt) => {
+      evt.preventDefault();
+      const phone = evt.target.value;
+      dispatch(registerPhoneChange(phone));
+    },
+    handlePwdChange: (evt) => {
+      evt.preventDefault();
+      const pwd = evt.target.value;
+      dispatch(registerPwdChange(pwd));
+    },
+    handleSMSCodeChange: (evt) => {
+      evt.preventDefault();
+      const smsCode = evt.target.value;
+      dispatch(registerSmsCodeChange(smsCode));
+    },
     handleSubmitDispatch: () => {
-      dispatch(repoUserRegister);
+      dispatch(repoUserRegister());
     }
   }
 }

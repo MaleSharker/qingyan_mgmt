@@ -33,7 +33,7 @@ export function* userAuth() {
     },
     body: `phone=${phone}&password=${md5(pwd)}`,
   };
-
+  console.log('phone - pwd - - - ',phone, pwd);
   try {
     const repos = yield call(request, phoneLoginURL,option);
     console.log('repos - - ',repos);

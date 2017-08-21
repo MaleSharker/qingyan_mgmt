@@ -24,18 +24,23 @@ import {
 
 
 function* userRegister() {
-
-  const phone = select(selectRegisterPhone());
-  const pwd = select(selectRegisterPwd());
-  const smsCode = select(selectRegisterSMSCode());
+  console.log('user register - - - - ');
+  const phone = yield select(selectRegisterPhone());
+  const pwd = yield select(selectRegisterPwd());
+  const smsCode = yield select(selectRegisterSMSCode());
   const verifyCode = md5(phone + SMS_ENCODE);
   const option = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: `phone=${phone}&password=${md5(pwd)}&code=${smsCode}&verifyCode=${verifyCode}`,
   };
+
+
+
+
+  console.log('phone pwd smsCode verify - - - ', phone,pwd,smsCode);
 
   try {
 
@@ -43,7 +48,7 @@ function* userRegister() {
     const key = repos.userID;
     const token = repos.token;
     yield put(repoRegisterSuccess(key,token));
-    browserHistory.push('/manage');
+    // browserHistory.push('/manage');
   }catch (err) {
     yield put(repoRegisterError(err));
   };

@@ -28,12 +28,6 @@ class AsideCollapse extends React.Component{
         console.log('login state - - ',props.isLogin);
     }
 
-    getInitialState() {
-        return {
-            collapse: true,
-        };
-    }
-
     onCollapseChange() {
         console.log('4 - - - ');
     }
