@@ -22,6 +22,9 @@ import {
   LOAD_LOGIN_SUCCESS,
   LOAD_LOGIN_ERROR,
   LOAD_USER_LOGIN,
+  LOAD_USER_REGISTER,
+  LOAD_REGISTER_SUCCESS,
+  LOAD_REGISTER_ERROR,
 } from './constants';
 
 /**
@@ -64,3 +67,78 @@ export function repoLoadingError(error) {
     error,
   };
 }
+
+/**
+ * 用户登录
+ * @returns {{type}}
+ */
+export function repoUserLogin() {
+  console.log('user login action - - ');
+  return {
+    type: LOAD_USER_LOGIN,
+  }
+}
+
+
+/**
+ * 用户登录成功
+ * @param key
+ * @param token
+ * @returns {{type, key: *, token: *}}
+ */
+export function repoLoginSuccess(key,token) {
+  return {
+    type: LOAD_LOGIN_SUCCESS,
+    key,
+    token,
+  };
+}
+
+/**
+ * 用户登录失败
+ * @param error
+ * @returns {{type, error: *}}
+ */
+export function repoLoginError(error) {
+  return {
+    type: LOAD_LOGIN_ERROR,
+    error,
+  }
+}
+
+/**
+ * 用户注册
+ */
+export function repoUserRegister() {
+  return {
+    type: LOAD_USER_REGISTER,
+  }
+}
+
+/**
+ * 用户注册成功
+ * @param key
+ * @param token
+ * @returns {{type, key: *, token: *}}
+ */
+export function repoRegisterSuccess(key,token) {
+  return {
+    type: LOAD_REGISTER_SUCCESS,
+    key,
+    token,
+  }
+}
+
+/**
+ * 用户注册失败
+ * @param error
+ * @returns {{type, error: *}}
+ */
+export function repoRegisterError(error) {
+  return {
+    type: LOAD_REGISTER_ERROR,
+    error,
+  }
+}
+
+

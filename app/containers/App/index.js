@@ -50,49 +50,27 @@
 
 
 import React from 'react';
-import 'antd/dist/antd.css'
-import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
-import { createStructuredSelector } from 'reselect';
+// import 'antd/dist/antd.css';
+import styled from 'styled-components';
 
-import LoginPage from '../LoginPage'
-import ManagePage from '../ManagePage'
+const StyledDiv = styled.div``;
 
-import { makeSelectLogin } from './selectors'
-
-class AsideCollapse extends React.Component {
-
-  constructor(){
-    super();
-    // if (this.props.isLogin){
-    //   browserHistory.push('/manage');
-    // }
-  }
-
-  componentDidMount(){
-
-    if (this.props.isLogin){
-      browserHistory.push('/manage');
-    }
-  }
-
+class App extends React.Component {
   render() {
-    if (this.props.isLogin) {
-      return <ManagePage nodeChildren={React.Children.toArray(this.props.children)}/>
-    }else {
-      return <LoginPage/>;
-    }
+    return <StyledDiv>
+      {React.Children.toArray(this.props.children)}
+    </StyledDiv>
   }
 }
 
-AsideCollapse.propTypes = {
-  isLogin: React.PropTypes.bool,
-};
+// AsideCollapse.propTypes = {
+//   isLogin: React.PropTypes.bool,
+// };
+//
+//
+// const mapStateToProps = createStructuredSelector({
+//   isLogin: makeSelectLogin(),
+// });
 
-
-const mapStateToProps = createStructuredSelector({
-  isLogin: makeSelectLogin(),
-});
-
-export default connect(mapStateToProps)(AsideCollapse);
-
+// export default connect(mapStateToProps)(AsideCollapse);
+export default App;

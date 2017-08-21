@@ -16,11 +16,19 @@ import {
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS,
   LOAD_REPOS_ERROR,
+  LOAD_USER_LOGIN,
+  LOAD_LOGIN_SUCCESS,
+  LOAD_LOGIN_ERROR,
+  LOAD_USER_REGISTER,
+  LOAD_REGISTER_SUCCESS,
+  LOAD_REGISTER_ERROR,
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
-  isLogin: true,
+  isLogin: false,
+  key: '',
+  token: '',
   loading: false,
   error: false,
   currentUser: false,
@@ -45,6 +53,16 @@ function appReducer(state = initialState, action) {
       return state
         .set('error', action.error)
         .set('loading', false);
+    case LOAD_USER_LOGIN: case LOAD_USER_REGISTER:
+      return state;
+    case LOAD_LOGIN_SUCCESS: case LOAD_REGISTER_SUCCESS:
+      return state
+          .set('isLogin',true)
+          .set('key',action.key)
+          .set('token', action.token);
+    case LOAD_LOGIN_ERROR: case LOAD_REGISTER_ERROR:
+      return state
+          .set('isLogin',false);
     default:
       return state;
   }

@@ -21,25 +21,16 @@ export default function createRoutes(store) {
       path: '/',
       name: 'login',
       getComponent(nextState, cb) {
-        import('containers/LoginPage')
-            .then(loadModule(cb))
-            .catch(errorLoading)
-      }
-    },
-    {
-      path: '/manage',
-      name: 'home',
-      getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/HomePage/reducer'),
-          import('containers/HomePage/sagas'),
-          import('containers/HomePage'),
-        ]);
+        import('containers/LoginPage/reducer'),
+        import('containers/LoginPage/sagas'),
+        import('containers/LoginPage'),
+      ]);
 
         const renderRoute = loadModule(cb);
 
         importModules.then(([reducer, sagas, component]) => {
-          injectReducer('home', reducer.default);
+          injectReducer('login',reducer.default);
           injectSagas(sagas.default);
 
           renderRoute(component);
@@ -47,22 +38,77 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
-      path: '/features',
-      name: 'features',
+    },
+    {
+      path: 'register',
       getComponent(nextState, cb) {
-        import('containers/FeaturePage')
-          .then(loadModule(cb))
-          .catch(errorLoading);
-      },
-    }, {
-      path: '*',
-      name: 'notfound',
-      getComponent(nextState, cb) {
-        import('containers/NotFoundPage')
-          .then(loadModule(cb))
-          .catch(errorLoading);
+        const importModules = Promise.all([
+          import('containers/RegisterPage/reducer'),
+          import('containers/RegisterPage/sagas'),
+          import('containers/RegisterPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('register', reducer.default);
+          injectSagas(sagas.default);
+
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
       },
     },
+    {
+      path: 'manage',
+      getComponent(nextState, cb) {
+        import('containers/ManagePage')
+          .then(loadModule(cb))
+          .catch(errorLoading)
+      },
+      childRoutes: [
+        {
+          path: 'home',
+          name: 'home',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+            import('containers/HomePage/reducer'),
+            import('containers/HomePage/sagas'),
+            import('containers/HomePage'),
+          ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('home', reducer.default);
+              injectSagas(sagas.default);
+
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          },
+        },
+        {
+          path: 'features',
+          name: 'features',
+          getComponent(nextState, cb) {
+            import('containers/FeaturePage')
+              .then(loadModule(cb))
+              .catch(errorLoading);
+          },
+        },
+        {
+          path: '*',
+          name: 'notfound',
+          getComponent(nextState, cb) {
+            import('containers/NotFoundPage')
+              .then(loadModule(cb))
+              .catch(errorLoading);
+          },
+        },
+      ]
+    }
   ];
 }

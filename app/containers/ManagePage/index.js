@@ -2,6 +2,10 @@
  * Created by YCYL on 2017/8/14.
  */
 
+import { connect } from 'react-redux';
+import { makeSelectLogin } from 'containers/App/selectors';
+import { createStructuredSelector } from 'reselect';
+import { browserHistory } from 'react-router';
 
 import React from 'react';
 import 'antd/dist/antd.css'
@@ -14,27 +18,42 @@ import { AsideDiv , AsideLogo, AsideSider ,ASMenu ,ASMItem ,ASMNavText ,
     ASMIIcon ,AsideAction ,BreadcrumbDiv ,AsideMain ,AsideContainer,
     AsideContent ,AsideFooter} from './components'
 
-const AsideCollapse = React.createClass({
+class AsideCollapse extends React.Component{
+
+    constructor(props){
+        super(props);
+        if (!this.props.isLogin){
+            browserHistory.push('/');
+        }
+        console.log('login state - - ',props.isLogin);
+    }
+
     getInitialState() {
         return {
             collapse: true,
         };
-    },
+    }
+
     onCollapseChange() {
         console.log('4 - - - ');
-    },
+    }
+
+    // componentWillMount(){
+    //
+    // }
+
     render() {
             return (
                 <AsideDiv>
                     <AsideSider>
                         <AsideLogo></AsideLogo>
-                        <ASMenu mode="inline" theme="dark" defaultSelectedKeys={['user-list']}>
+                        <ASMenu mode="inline" theme="dark" defaultSelectedKeys={['user-list']} >
                             <SubMenu key="user" title={<ASMNavText><ASMIIcon type="user"></ASMIIcon><ASMNavText>用户管理</ASMNavText></ASMNavText>}>
                                 <ASMItem key="user-list">
-                                    <Link to="/manage"><ASMNavText>用户列表</ASMNavText></Link>
+                                    <Link to="/manage/home"><ASMNavText>用户列表</ASMNavText></Link>
                                 </ASMItem>
                                 <ASMItem key="user-add">
-                                    <Link to="/features"><ASMNavText>添加用户</ASMNavText></Link>
+                                    <Link to="/manage/features"><ASMNavText>添加用户</ASMNavText></Link>
                                 </ASMItem>
                             </SubMenu>
                             <SubMenu key="tenant" title={<ASMNavText><ASMIIcon type="shop"></ASMIIcon><ASMNavText>商铺</ASMNavText></ASMNavText>}>
@@ -80,7 +99,7 @@ const AsideCollapse = React.createClass({
                         </BreadcrumbDiv>
                         <AsideContainer>
                             <AsideContent>
-                                {this.props.nodeChildren}
+                                {React.Children.toArray(this.props.children)}
                             </AsideContent>
                         </AsideContainer>
                         <AsideFooter>
@@ -89,11 +108,17 @@ const AsideCollapse = React.createClass({
                     </AsideMain>
                 </AsideDiv>
             );
-    },
-});
+    }
+};
+
 
 AsideCollapse.propTypes = {
     children: React.PropTypes.node,
+    isLogin: React.PropTypes.bool,
 };
 
-export default AsideCollapse;
+const mapStateToProps = createStructuredSelector({
+    isLogin: makeSelectLogin(),
+});
+
+export default connect(mapStateToProps)(AsideCollapse);
