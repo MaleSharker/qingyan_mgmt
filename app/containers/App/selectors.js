@@ -57,6 +57,11 @@ const selectLoginToken = () => createSelector(
     (globalState) => globalState.get('token')
 );
 
+const selectUserPhone = () => createSelector(
+    selectGlobal,
+    (globalState) => globalState.get('phone')
+);
+
 export {
   selectGlobal,
   makeSelectLogin,
@@ -67,4 +72,5 @@ export {
   makeSelectLocationState,
   selectLoginKey,
   selectLoginToken,
+  selectUserPhone,
 };

@@ -22,6 +22,9 @@ import {
   LOAD_USER_REGISTER,
   LOAD_REGISTER_SUCCESS,
   LOAD_REGISTER_ERROR,
+  LOAD_SMS_CODE_REGISTER,
+  LOAD_SMS_CODE_LOGIN,
+  LOAD_SMS_CODE_RETRIEVE,
 } from './constants';
 
 // The initial state of the App
@@ -29,6 +32,7 @@ const initialState = fromJS({
   isLogin: false,
   key: '',
   token: '',
+  phone: '',
   loading: false,
   error: false,
   currentUser: false,
@@ -53,16 +57,24 @@ function appReducer(state = initialState, action) {
       return state
         .set('error', action.error)
         .set('loading', false);
-    case LOAD_USER_LOGIN: case LOAD_USER_REGISTER:
+    case LOAD_USER_LOGIN:
+    case LOAD_USER_REGISTER:
       return state;
-    case LOAD_LOGIN_SUCCESS: case LOAD_REGISTER_SUCCESS:
+    case LOAD_LOGIN_SUCCESS:
+    case LOAD_REGISTER_SUCCESS:
+
       return state
           .set('isLogin',true)
-          .set('key',action.key)
+          .set('key',`${action.key}`)
           .set('token', action.token);
-    case LOAD_LOGIN_ERROR: case LOAD_REGISTER_ERROR:
+    case LOAD_LOGIN_ERROR:
+    case LOAD_REGISTER_ERROR:
       return state
-          .set('isLogin',false);
+    case LOAD_SMS_CODE_REGISTER:
+    case LOAD_SMS_CODE_LOGIN:
+    case LOAD_SMS_CODE_RETRIEVE:
+      return state
+          .set('phone',action.phone);
     default:
       return state;
   }

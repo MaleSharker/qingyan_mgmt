@@ -23,3 +23,8 @@ export const LOAD_LOGIN_ERROR = 'boilerplate/Login/LOAD_LOGIN_ERROR';
 export const LOAD_USER_REGISTER = 'boilerplate/Register/LOAD_USER_REGISTER';
 export const LOAD_REGISTER_SUCCESS = 'boilerplate/Register/LOAD_REGISTER_SUCCESS';
 export const LOAD_REGISTER_ERROR = 'boilerplate/Register/LOAD_REGISTER_ERROR';
+
+//获取手机验证码
+export const LOAD_SMS_CODE_REGISTER = 'boilerplate/SMSCode/LOAD_SMS_CODE_REGISTER';
+export const LOAD_SMS_CODE_LOGIN = 'boilerplate/SMSCode/LOAD_SMS_CODE_LOGIN';
+export const LOAD_SMS_CODE_RETRIEVE = 'boilerplate/SMSCode/LOAD_SMS_CODE_RETRIEVE';

@@ -25,6 +25,9 @@ import {
   LOAD_USER_REGISTER,
   LOAD_REGISTER_SUCCESS,
   LOAD_REGISTER_ERROR,
+  LOAD_SMS_CODE_REGISTER,
+  LOAD_SMS_CODE_LOGIN,
+  LOAD_SMS_CODE_RETRIEVE,
 } from './constants';
 
 /**
@@ -141,4 +144,33 @@ export function repoRegisterError(error) {
   }
 }
 
+/**
+ * 用户获取注册验证码
+ */
+export function repoSMSCodeRegister(phone) {
+  return {
+    type: LOAD_SMS_CODE_REGISTER,
+    phone,
+  }
+}
 
+/**
+ * 用户获取登录验证码
+ */
+export function repoSMSCodeLogin(phone) {
+  console.log('sms action - - - ');
+  return {
+    type: LOAD_SMS_CODE_LOGIN,
+    phone,
+  }
+}
+
+/**
+ * 用户找回密码验证码
+ */
+export function repoSMSCodeRetrieve(phone) {
+  return {
+    type: LOAD_SMS_CODE_RETRIEVE,
+    phone,
+  }
+}

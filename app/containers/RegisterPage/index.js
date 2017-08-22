@@ -8,7 +8,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { createStructuredSelector} from 'reselect';
 import { selectRegisterPhone } from './selectors';
-import { repoUserRegister } from 'containers/App/actions';
+import { repoUserRegister, repoSMSCodeRegister, repoSMSCodeLogin, repoSMSCodeRetrieve } from 'containers/App/actions';
 import {
   registerPhoneChange,
   registerPwdChange,
@@ -62,6 +62,12 @@ class RegistrationForm extends React.Component {
         this.props.handleSubmitDispatch()
       }
     });
+  };
+
+  handleSMSCodeSubmit = () => {
+    console.log('sms btn action - - - ');
+    var phone = this.props.form.getFieldValue('phone');
+    this.props.handleSMSCodeDispatch(phone);
   };
 
   handleConfirmBlur = (e) => {
@@ -152,11 +158,11 @@ class RegistrationForm extends React.Component {
                 rules: [{ required: true, message: 'Please input the captcha you got!' }],
               })(
                 <Input size="large"
-                       onChange={this.props.handlePwdChange}/>
+                       onChange={this.props.handleSMSCodeChange}/>
               )}
             </Col>
             <Col span={12}>
-              <Button size="large">Get captcha</Button>
+              <Button size="large" onClick={this.handleSMSCodeSubmit}>Get captcha</Button>
             </Col>
           </Row>
         </FormItem>
@@ -172,7 +178,7 @@ class RegistrationForm extends React.Component {
               validator: this.checkConfirm,
             }],
           })(
-            <Input type="password" />
+            <Input type="password"  onChange={this.props.handlePwdChange}/>
           )}
         </FormItem>
         <FormItem
@@ -187,7 +193,7 @@ class RegistrationForm extends React.Component {
               validator: this.checkPassword,
             }],
           })(
-            <Input type="password" onBlur={this.handleConfirmBlur} onChange={this.props.handleSMSCodeChange}/>
+            <Input type="password" onBlur={this.handleConfirmBlur}/>
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout} style={{ marginBottom: 8 }}>
@@ -229,6 +235,9 @@ export function mapDispatchToProps(dispatch) {
       evt.preventDefault();
       const smsCode = evt.target.value;
       dispatch(registerSmsCodeChange(smsCode));
+    },
+    handleSMSCodeDispatch: (phone) => {
+      dispatch(repoSMSCodeRegister(phone));
     },
     handleSubmitDispatch: () => {
       dispatch(repoUserRegister());

@@ -9,7 +9,7 @@ import 'whatwg-fetch';
  */
 function parseJSON(response) {
   const json = response.json();
-  console.log('json - - ',json);
+  console.log('json - - ',json.msg);
   return json;
 }
 
@@ -21,6 +21,7 @@ function parseJSON(response) {
  * @return {object|undefined} Returns either the response, or throws an error
  */
 function checkStatus(response) {
+  console.log('fetch result - - - -',response.status);
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -39,7 +40,19 @@ function checkStatus(response) {
  * @return {object}           The response data
  */
 export default function request(url, options) {
-  return fetch(url, options)
+  // var request = new Request(url,{
+  //   method: 'POST',
+  //   mode: 'no-cors',
+  //   redirect: 'follow',
+  //   headers: new Headers({
+  //     'Content-Type': 'application/x-www-form-urlencoded',
+  //     'Accept': 'application/json',
+  //     'token': '123456',
+  //     'key': '19',
+  //   }),
+  //   guard: 'request'
+  // });
+  return fetch(url,options)
     .then(checkStatus)
     .then(parseJSON);
 }

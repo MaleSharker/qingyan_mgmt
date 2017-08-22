@@ -2,17 +2,26 @@
  * Created by YCYL on 2017/8/15.
  */
 
+import 'whatwg-fetch';
+
 export const SMS_ENCODE = 'SXLSSJY';
 
 const baseUrl = "http://192.168.0.165:3000";
 
+const headers = new Headers();
+headers.append('Access-Control-Allow-Origin','*');
+headers.append('Content-Type','application/x-www-form-urlencoded');
+headers.append('Accept','application/json');
+headers.append('token','123456');
+headers.append('key','19');
+
 export const postOptions = {
     method: 'POST',
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'key': '',
-        'token': '',
-    },
+    headers: headers,
+    body:'',
+    credentials: 'credentials',
+    cache: 'default',
+    mode: 'cors'
 };
 
 export const uploadOptions = {
