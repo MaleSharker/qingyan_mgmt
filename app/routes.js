@@ -12,9 +12,16 @@ const loadModule = (cb) => (componentModule) => {
   cb(null, componentModule.default);
 };
 
+
 export default function createRoutes(store) {
   // create reusable async injectors using getAsyncInjectors factory
   const { injectReducer, injectSagas } = getAsyncInjectors(store);
+
+  const requireAuth = (nextState, replaceState) => {
+    if (!store.getState().get('global').get('isLogin')) {
+      replaceState({ nextPathname: nextState.location.pathname }, '/');
+    }
+  };
 
   return [
     {
@@ -67,6 +74,7 @@ export default function createRoutes(store) {
           .then(loadModule(cb))
           .catch(errorLoading)
       },
+      onEnter: requireAuth,
       childRoutes: [
         {
           path: 'home',

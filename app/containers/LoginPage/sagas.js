@@ -33,17 +33,13 @@ export function* userAuth() {
     },
     body: `phone=${phone}&password=${md5(pwd)}`,
   };
-  console.log('phone - pwd - - - ',phone, pwd);
   try {
     const repos = yield call(request, phoneLoginURL,option);
-    console.log('repos - - ',repos);
-    yield put(repoLoginSuccess(repos.result.user.userID,repos.result.user.token));
+    yield put(repoLoginSuccess(repos.result.user.userID, repos.result.user.token, phone));
     browserHistory.push('/manage');
   }catch (err){
-    console.log('error - - ',err);
     yield put(repoLoginError(err));
   }
-
 }
 
 export function* loginData() {

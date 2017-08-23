@@ -28,6 +28,7 @@ import {
   LOAD_SMS_CODE_REGISTER,
   LOAD_SMS_CODE_LOGIN,
   LOAD_SMS_CODE_RETRIEVE,
+  LOAD_USER_LOGOUT,
 } from './constants';
 
 /**
@@ -89,11 +90,12 @@ export function repoUserLogin() {
  * @param token
  * @returns {{type, key: *, token: *}}
  */
-export function repoLoginSuccess(key,token) {
+export function repoLoginSuccess(key,token,phone) {
   return {
     type: LOAD_LOGIN_SUCCESS,
     key,
     token,
+    phone
   };
 }
 
@@ -174,3 +176,13 @@ export function repoSMSCodeRetrieve(phone) {
     phone,
   }
 }
+
+/**
+ * 用户登出
+ */
+export function repoUserLogout() {
+  return {
+    type: LOAD_USER_LOGOUT,
+  }
+}
+

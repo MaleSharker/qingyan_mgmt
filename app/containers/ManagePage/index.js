@@ -5,6 +5,7 @@
 import { connect } from 'react-redux';
 import { makeSelectLogin } from 'containers/App/selectors';
 import { createStructuredSelector } from 'reselect';
+import { repoUserLogout } from 'containers/App/actions'
 import { browserHistory } from 'react-router';
 
 import React from 'react';
@@ -12,29 +13,23 @@ import 'antd/dist/antd.css'
 import { Menu } from 'antd';
 import Breadcrumb from 'antd/lib/breadcrumb';
 import { Link } from 'react-router';
-const SubMenu = Menu.SubMenu;
-
 import { AsideDiv , AsideLogo, AsideSider ,ASMenu ,ASMItem ,ASMNavText ,
     ASMIIcon ,AsideAction ,BreadcrumbDiv ,AsideMain ,AsideContainer,
     AsideContent ,AsideFooter} from './components'
+
+const SubMenu = Menu.SubMenu;
 
 class AsideCollapse extends React.Component{
 
     constructor(props){
         super(props);
-        if (!this.props.isLogin){
-            browserHistory.push('/');
-        }
-        console.log('login state - - ',props.isLogin);
     }
 
-    onCollapseChange() {
-        console.log('4 - - - ');
-    }
-
-    // componentWillMount(){
-    //
-    // }
+    onCollapseChange = (e) => {
+        e.preventDefault();
+        this.props.handleLogout();
+        browserHistory.push('/');
+    };
 
     render() {
             return (
@@ -115,4 +110,10 @@ const mapStateToProps = createStructuredSelector({
     isLogin: makeSelectLogin(),
 });
 
-export default connect(mapStateToProps)(AsideCollapse);
+export function mapDispatchToProps(dispatch) {
+    return {
+        handleLogout: () => dispatch(repoUserLogout()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AsideCollapse);

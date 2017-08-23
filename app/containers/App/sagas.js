@@ -20,7 +20,6 @@ import {
 } from './selectors';
 
 function* postRequest(type) {
-    console.log('sms post - - - ');
     let phone = yield select(selectUserPhone());
     let verifyCode = md5(phone + SMS_ENCODE);
     postOptions.body = `phone=${phone}&verifyCode=${verifyCode}&smsType=${type}`;
@@ -34,7 +33,6 @@ function* postRequest(type) {
 }
 
 function* getSMSCode() {
-    console.log('1 - - - ');
     yield takeLatest(LOAD_SMS_CODE_REGISTER,postRequest,'register');
     yield takeLatest(LOAD_SMS_CODE_LOGIN,postRequest,'login');
     yield takeLatest(LOAD_SMS_CODE_RETRIEVE, postRequest,'retrieve');

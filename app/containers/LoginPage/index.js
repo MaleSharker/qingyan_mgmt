@@ -2,6 +2,14 @@
  * Created by YCYL on 2017/8/14.
  */
 
+import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { makeSelectLogin } from 'containers/App/selectors';
+import {
+    selectLoginPhone,
+    selectLoginPwd,
+} from './selectors'
 import 'antd/dist/antd.css';
 import {  Form, Icon, Input, Checkbox } from 'antd';
 import { Link, browserHistory } from 'react-router';
@@ -15,23 +23,9 @@ import {
 import { LoginForm, LoginBtn ,LoginBody } from './components';
 const FormItem = Form.Item;
 
-import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { makeSelectLogin } from 'containers/App/selectors';
-import {
-    selectLoginPhone,
-    selectLoginPwd,
-} from './selectors'
+
 
 class Login extends  React.Component {
-
-    componentDidMount(){
-        if (this.props.isLogin) {
-            console.log('log in - - - ');
-            browserHistory.push('/manage')
-        }
-    }
 
     render(){
         const { getFieldDecorator } = this.props.form;

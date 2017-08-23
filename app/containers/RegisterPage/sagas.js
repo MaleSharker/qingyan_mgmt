@@ -45,7 +45,7 @@ function* userRegister() {
     if (repos.status == 1) {
       const key = repos.result.key;
       const token = repos.result.token;
-      yield put(repoRegisterSuccess(key,token));
+      yield put(repoRegisterSuccess(key,token,phone));
       browserHistory.push('/manage');
     }else {
       yield put(repoRegisterError(repos));
