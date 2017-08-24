@@ -24,30 +24,6 @@ const ICPSelector = styled(Select)`
   width: 60px;
 `;
 
-const residences = [{
-  value: 'zhejiang',
-  label: 'Zhejiang',
-  children: [{
-    value: 'hangzhou',
-    label: 'Hangzhou',
-    children: [{
-      value: 'xihu',
-      label: 'West Lake',
-    }],
-  }],
-}, {
-  value: 'jiangsu',
-  label: 'Jiangsu',
-  children: [{
-    value: 'nanjing',
-    label: 'Nanjing',
-    children: [{
-      value: 'zhonghuamen',
-      label: 'Zhong Hua Men',
-    }],
-  }],
-}];
-
 class RegistrationForm extends React.Component {
 
   state = {
@@ -65,9 +41,13 @@ class RegistrationForm extends React.Component {
   };
 
   handleSMSCodeSubmit = () => {
-    console.log('sms btn action - - - ');
-    var phone = this.props.form.getFieldValue('phone');
-    this.props.handleSMSCodeDispatch(phone);
+
+    this.props.form.validateFields(['phone'],{len: 11},(err,value) => {
+      console.log('value - - ',value);
+      if (!err) {
+        this.props.handleSMSCodeDispatch(value.phone);
+      }
+    });
   };
 
   handleConfirmBlur = (e) => {
@@ -138,7 +118,7 @@ class RegistrationForm extends React.Component {
       <Form onSubmit={this.handleSubmit}>
         <FormItem
           {...formItemLayout}
-          label="Phone Number"
+          label="手机号码"
         >
           {getFieldDecorator('phone', {
             rules: [{ required: true, message: 'Please input your phone number!' }],
@@ -149,7 +129,7 @@ class RegistrationForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Captcha"
+          label="验证码"
           extra="We must make sure that your are a human."
         >
           <Row gutter={8}>
@@ -162,13 +142,13 @@ class RegistrationForm extends React.Component {
               )}
             </Col>
             <Col span={12}>
-              <Button size="large" onClick={this.handleSMSCodeSubmit}>Get captcha</Button>
+              <Button size="large" onClick={this.handleSMSCodeSubmit}>获取验证码</Button>
             </Col>
           </Row>
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Password"
+          label="密码"
           hasFeedback
         >
           {getFieldDecorator('password', {
@@ -183,7 +163,7 @@ class RegistrationForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Confirm Password"
+          label="确认密码"
           hasFeedback
         >
           {getFieldDecorator('confirm', {
@@ -206,11 +186,14 @@ class RegistrationForm extends React.Component {
             valuePropName: 'checked',
 
           })(
-            <Checkbox>I have read the <Link>agreement</Link></Checkbox>
+            <Checkbox>我已阅读 <Link>注册协议</Link></Checkbox>
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit" size="large">Register</Button>
+        </FormItem>
+        <FormItem {...tailFormItemLayout}>
+          已有账号,<Link to="/">返回登录</Link>
         </FormItem>
       </Form>
     );

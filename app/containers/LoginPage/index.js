@@ -58,11 +58,11 @@ class Login extends  React.Component {
                         })(
                             <Checkbox>Remember me</Checkbox>
                         )}
-                        <Link to="/forgetPwd">Forget password</Link>
+                        <Link to="/forgetPwd">忘记密码</Link>
                         <LoginBtn type="primary" htmlType="submit">
                             Log in
                         </LoginBtn>
-                        Or <Link to="/register">register now!</Link>
+                        <Link to="/register">立即注册</Link>
                     </FormItem>
                 </LoginForm>
             </LoginBody>
@@ -77,7 +77,6 @@ export function mapDispatchToProps(dispatch) {
         onChangePassword: (evt) => dispatch(loginPasswordChanged(evt.target.value)),
         handleSubmitForm: (evt) => {
             if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-            console.log('handle submit - - - - ');
             dispatch(repoUserLogin());
         },
     };

@@ -30,7 +30,7 @@ import {
 
 // The initial state of the App
 const initialState = fromJS({
-  isLogin: true,
+  isLogin: false,
   key: '',
   token: '',
   phone: '',
