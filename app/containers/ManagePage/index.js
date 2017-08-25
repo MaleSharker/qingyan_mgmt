@@ -28,7 +28,7 @@ class AsideCollapse extends React.Component{
     onCollapseChange = (e) => {
         e.preventDefault();
         this.props.handleLogout();
-        process.runPurge();
+        // process.runPurge();
         browserHistory.push('/');
     };
 
