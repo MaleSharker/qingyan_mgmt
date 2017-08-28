@@ -10,20 +10,19 @@ export const sizes = {
     phone: 414,
 };
 
+// @media (max-width: ${sizes.desktop}px) {
+//     background: palevioletred;
+//
+// }
+//
+// @media (max-width: ${sizes.tablet}px) {
+//     background: mediumseagreen;
+// }
+//
+// @media (max-width: ${sizes.phone}px) {
+//     background: dodgerblue;
+// }
 
 export const StyledDiv = styled.div`
-  
-  @media (max-width: ${sizes.desktop}px) {
-    background: palevioletred;
-    
-  }
-  
-  @media (max-width: ${sizes.tablet}px) {
-    background: mediumseagreen;
-  }
-  
-  @media (max-width: ${sizes.phone}px) {
-    background: dodgerblue;
-  }
   
 `;

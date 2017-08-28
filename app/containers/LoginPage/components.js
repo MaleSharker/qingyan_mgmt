@@ -4,6 +4,7 @@
 
 import styled from 'styled-components';
 import { Button, Form } from 'antd';
+import { Link } from 'react-router';
 
 export const LoginForm = styled(Form)`
     max-width: 300px;
@@ -23,3 +24,9 @@ export const LoginBody = styled.div`
     align-items: center;
     justify-content: center;
 `;
+
+export const RightFloatLink = styled(Link)`
+    text-align: right;
+    float: right;
+`;
+

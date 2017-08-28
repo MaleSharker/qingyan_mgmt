@@ -16,6 +16,7 @@ import {
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS,
   LOAD_REPOS_ERROR,
+  LOAD_USER_CODE_LOGIN,
   LOAD_USER_LOGIN,
   LOAD_LOGIN_SUCCESS,
   LOAD_LOGIN_ERROR,
@@ -65,6 +66,7 @@ function appReducer(state = initialState, action) {
           .set('token','')
           .set('phone','');
     case LOAD_USER_LOGIN:
+    case LOAD_USER_CODE_LOGIN:
     case LOAD_USER_REGISTER:
       return state;
     case LOAD_LOGIN_SUCCESS:

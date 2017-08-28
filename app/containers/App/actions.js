@@ -21,6 +21,7 @@ import {
   LOAD_REPOS_ERROR,
   LOAD_LOGIN_SUCCESS,
   LOAD_LOGIN_ERROR,
+  LOAD_USER_CODE_LOGIN,
   LOAD_USER_LOGIN,
   LOAD_USER_REGISTER,
   LOAD_REGISTER_SUCCESS,
@@ -83,6 +84,15 @@ export function repoUserLogin() {
   }
 }
 
+/**
+ * 用户验证码登录
+ * @returns {{type}}
+ */
+export function repoUserCodeLogin() {
+  return {
+    type: LOAD_USER_CODE_LOGIN
+  }
+}
 
 /**
  * 用户登录成功

@@ -68,6 +68,27 @@ export default function createRoutes(store) {
       },
     },
     {
+      path: 'codeLogin',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/LoginCodePage/reducers'),
+          import('containers/LoginCodePage/sagas'),
+          import('containers/LoginCodePage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('codeLogin',reducer.default);
+          injectSagas(sagas.default);
+
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: 'manage',
       getComponent(nextState, cb) {
         import('containers/ManagePage')
@@ -107,16 +128,16 @@ export default function createRoutes(store) {
               .catch(errorLoading);
           },
         },
-        {
-          path: '*',
-          name: 'notfound',
-          getComponent(nextState, cb) {
-            import('containers/NotFoundPage')
-              .then(loadModule(cb))
-              .catch(errorLoading);
-          },
-        },
       ]
-    }
+    },
+    {
+      path: '*',
+      name: 'notfound',
+      getComponent(nextState, cb) {
+        import('containers/NotFoundPage')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    },
   ];
 }

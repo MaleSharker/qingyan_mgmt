@@ -7,20 +7,20 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectLogin } from 'containers/App/selectors';
 import {
-    selectLoginPhone,
-    selectLoginPwd,
+  selectLoginPhone,
+  selectLoginPwd,
 } from './selectors'
 import 'antd/dist/antd.css';
 import {  Form, Icon, Input, Checkbox } from 'antd';
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import {
-    loginPhoneChanged,
-    loginPasswordChanged,
+  loginPhoneChanged,
+  loginPasswordChanged,
 } from './actions';
 import {
-    repoUserLogin
+  repoUserLogin
 } from 'containers/App/actions';
-import { LoginForm, LoginBtn ,LoginBody } from './components';
+import { LoginForm, LoginBtn ,LoginBody ,RightFloatLink } from 'containers/LoginPage/components';
 const FormItem = Form.Item;
 
 
@@ -30,42 +30,43 @@ class Login extends  React.Component {
     render(){
         const { getFieldDecorator } = this.props.form;
         return (
-            <LoginBody>
-                <LoginForm onSubmit={this.props.handleSubmitForm}>
-                    <FormItem>
-                        { getFieldDecorator('userName', {
-                            rules: [{ required: true, message: 'Please input your username!'}],
-                        })(
-                            <Input prefix={<Icon type="tablet" style={{fontSize: 13}} />}
-                                   placeholder="Phone"
-                                   onChange={this.props.onChangePhone} />
-                        )}
-                    </FormItem>
-                    <FormItem>
-                        { getFieldDecorator('password', {
-                            rules: [{ required: true, message: 'Please input your password!'}],
-                        })(
-                            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }}/>}
-                                   type="password"
-                                   placeholder="Password"
-                                   onChange={this.props.onChangePassword}/>
-                        )}
-                    </FormItem>
-                    <FormItem>
-                        { getFieldDecorator('remember',{
-                            valuePropName: 'checked',
-                            initialValue: true,
-                        })(
-                            <Checkbox>Remember me</Checkbox>
-                        )}
-                        <Link to="/forgetPwd">忘记密码</Link>
-                        <LoginBtn type="primary" htmlType="submit">
-                            Log in
-                        </LoginBtn>
-                        <Link to="/register">立即注册</Link>
-                    </FormItem>
-                </LoginForm>
-            </LoginBody>
+          <LoginBody>
+              <LoginForm onSubmit={this.props.handleSubmitForm}>
+                  <FormItem>
+                      { getFieldDecorator('userName', {
+                          rules: [{ required: true, message: 'Please input your username!'}],
+                      })(
+                        <Input prefix={<Icon type="tablet" style={{fontSize: 13}} />}
+                               placeholder="Phone"
+                               onChange={this.props.onChangePhone} />
+                      )}
+                  </FormItem>
+                  <FormItem>
+                      { getFieldDecorator('password', {
+                          rules: [{ required: true, message: 'Please input your password!'}],
+                      })(
+                        <Input prefix={<Icon type="lock" style={{ fontSize: 13 }}/>}
+                               type="password"
+                               placeholder="Password"
+                               onChange={this.props.onChangePassword}/>
+                      )}
+                  </FormItem>
+                  <FormItem>
+                      { getFieldDecorator('remember',{
+                          valuePropName: 'checked',
+                          initialValue: true,
+                      })(
+                        <Checkbox>Remember me</Checkbox>
+                      )}
+                      <Link to="/forgetPwd">忘记密码</Link>
+                      <LoginBtn type="primary" htmlType="submit">
+                          Log in
+                      </LoginBtn>
+                      <Link to="/register">立即注册</Link>
+                      <RightFloatLink to="/codeLogin">验证码登录</RightFloatLink>
+                  </FormItem>
+              </LoginForm>
+          </LoginBody>
         );
     }
 
