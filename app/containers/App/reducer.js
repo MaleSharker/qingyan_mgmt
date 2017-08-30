@@ -10,7 +10,12 @@
  *   return state.set('yourStateVariable', true);
  */
 
+/**
+ * 没有消息就是最好的消息
+ */
+
 import { fromJS } from 'immutable';
+import { message } from 'antd';
 
 import {
   LOAD_REPOS_SUCCESS,
@@ -78,6 +83,7 @@ function appReducer(state = initialState, action) {
           .set('phone', action.phone);
     case LOAD_LOGIN_ERROR:
     case LOAD_REGISTER_ERROR:
+      message.error(`${action.error}`,3);
       return state;
     case LOAD_SMS_CODE_REGISTER:
     case LOAD_SMS_CODE_LOGIN:

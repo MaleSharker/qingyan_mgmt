@@ -40,18 +40,6 @@ function checkStatus(response) {
  * @return {object}           The response data
  */
 export default function request(url, options) {
-  // var request = new Request(url,{
-  //   method: 'POST',
-  //   mode: 'no-cors',
-  //   redirect: 'follow',
-  //   headers: new Headers({
-  //     'Content-Type': 'application/x-www-form-urlencoded',
-  //     'Accept': 'application/json',
-  //     'token': '123456',
-  //     'key': '19',
-  //   }),
-  //   guard: 'request'
-  // });
   return fetch(url,options)
     .then(checkStatus)
     .then(parseJSON);

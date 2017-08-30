@@ -6,7 +6,7 @@ import 'whatwg-fetch';
 
 export const SMS_ENCODE = 'SXLSSJY';
 
-const baseUrl = "http://192.168.1.104:3000";
+const baseUrl = "http://192.168.1.103:3000";
 
 const headers = new Headers();
 headers.append('Access-Control-Allow-Origin','*');

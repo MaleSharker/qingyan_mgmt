@@ -35,8 +35,13 @@ export function* userAuth() {
   };
   try {
     const repos = yield call(request, phoneLoginURL,option);
-    yield put(repoLoginSuccess(repos.result.user.userID, repos.result.user.token, phone));
-    browserHistory.push('/manage');
+    const status = repos.status;
+    if (status == 1) {
+      yield put(repoLoginSuccess(repos.result.user.userID, repos.result.user.token, phone));
+      browserHistory.push('/manage');
+    }else {
+      yield put(repoLoginError(repos.msg));
+    }
   }catch (err){
     yield put(repoLoginError(err));
   }

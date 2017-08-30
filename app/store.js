@@ -24,7 +24,7 @@ export default function configureStore(initialState = {}, history) {
 
   const enhancers = [
     applyMiddleware(...middlewares),
-    // autoRehydrate(),
+    autoRehydrate(),
   ];
 
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
@@ -48,7 +48,7 @@ export default function configureStore(initialState = {}, history) {
   store.runSaga = sagaMiddleware.run;
   store.asyncReducers = {}; // Async reducer registry
   const whiteList = ['global','language','home'];
-  // process.runPurge = persistStore(store).purge;
+  process.runPurge = persistStore(store).purge;  //记得ManagePage页面的关联
   // persistStore(store).purge();
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
