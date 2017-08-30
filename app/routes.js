@@ -98,6 +98,29 @@ export default function createRoutes(store) {
       onEnter: requireAuth,
       childRoutes: [
         {
+          path: 'resetPwd',
+          name: 'resetPwd',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+                import('containers/ResetPwdPage/reducers'),
+                import('containers/ResetPwdPage/sagas'),
+                import('containers/ResetPwdPage'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer,sagas,component]) => {
+              injectReducer('resetPwd',reducer.default);
+              injectSagas(sagas.default);
+
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+
+          },
+        },
+        {
           path: 'home',
           name: 'home',
           getComponent(nextState, cb) {

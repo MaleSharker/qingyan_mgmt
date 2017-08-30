@@ -37,8 +37,11 @@ class AsideCollapse extends React.Component{
                 <AsideDiv>
                     <AsideSider>
                         <AsideLogo></AsideLogo>
-                        <ASMenu mode="inline" theme="dark" defaultSelectedKeys={['user-list']} >
+                        <ASMenu mode="inline" theme="dark" defaultSelectedKeys={['reset-pwd']} >
                             <SubMenu key="user" title={<ASMNavText><ASMIIcon type="user"></ASMIIcon><ASMNavText>用户管理</ASMNavText></ASMNavText>}>
+                                <ASMItem key="reset-pwd">
+                                    <Link to="/manage/resetPwd"><ASMNavText>修改密码</ASMNavText></Link>
+                                </ASMItem>
                                 <ASMItem key="user-list">
                                     <Link to="/manage/home"><ASMNavText>用户列表</ASMNavText></Link>
                                 </ASMItem>

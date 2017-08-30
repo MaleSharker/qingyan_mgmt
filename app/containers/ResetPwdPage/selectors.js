@@ -16,7 +16,7 @@ const selectResetNewPwd = () => createSelector(
   (reset) => reset.get('newPwd'),
 );
 
-export default {
+export {
   selectResetOldPwd,
   selectResetNewPwd,
 };

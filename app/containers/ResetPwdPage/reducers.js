@@ -11,11 +11,11 @@ import { fromJS } from 'immutable';
 import { message } from 'antd';
 
 const initialState = fromJS({
-  oldPwd:'',
-  newPwd:'',
+  oldPwd: '',
+  newPwd: '',
 });
 
-function resetPwdReducer(state=initialState,action) {
+function resetPwdReducer(state = initialState, action) {
   switch (action.type) {
     case RESET_PASSWORD_ACTION:
       return state
@@ -23,13 +23,11 @@ function resetPwdReducer(state=initialState,action) {
         .set('newPwd',action.newPwd);
       break;
     case RESET_PASSWORD_ERROR:
-      message.error(`${action.error}`,3);
       return state;
     case RESET_PASSWORD_SUCCESS:
-      message.success(`重设密码成功`,3);
       return state;
     default:
-      break;
+      return state;
   }
 }
 
