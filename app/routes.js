@@ -124,22 +124,25 @@ export default function createRoutes(store) {
           path: 'home',
           name: 'home',
           getComponent(nextState, cb) {
-            const importModules = Promise.all([
-            import('containers/HomePage/reducer'),
-            import('containers/HomePage/sagas'),
-            import('containers/HomePage'),
-          ]);
-
-            const renderRoute = loadModule(cb);
-
-            importModules.then(([reducer, sagas, component]) => {
-              injectReducer('home', reducer.default);
-              injectSagas(sagas.default);
-
-              renderRoute(component);
-            });
-
-            importModules.catch(errorLoading);
+          //   const importModules = Promise.all([
+          //   import('containers/HomePage/reducer'),
+          //   import('containers/HomePage/sagas'),
+          //   import('containers/HomePage'),
+          // ]);
+          //
+          //   const renderRoute = loadModule(cb);
+          //
+          //   importModules.then(([reducer, sagas, component]) => {
+          //     injectReducer('home', reducer.default);
+          //     injectSagas(sagas.default);
+          //
+          //     renderRoute(component);
+          //   });
+          //
+          //   importModules.catch(errorLoading);
+            import('containers/UserListPage')
+                .then(loadModule(cb))
+                .catch(errorLoading);
           },
         },
         {
